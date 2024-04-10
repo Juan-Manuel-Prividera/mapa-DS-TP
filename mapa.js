@@ -1,5 +1,5 @@
 var map;
-
+// Cuando el html termina de cargar ejecuta cargarMapa()
 $(document).ready(function() {
     cargarMapa();
 });
@@ -7,13 +7,17 @@ $(document).ready(function() {
 // La L es un objeto de leaflet 
 
 function cargarMapa(){
-
+	const puntoCentral ={
+		lat : -34.656032172926906, 
+		lng : -58.426227983358935,
+	}
+  		
     // Inicializar el mapa y establecer su punto central y el nivel de zoom
-    map = L.map('mapid').setView([-34.656032172926906, -58.426227983358935], 13);
+    map = L.map('mapid').setView([puntoCentral.lat,puntoCentral.lng], 13);
     
     // Cargar mapa
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '© OpenStreetMap contributors'
+        attribution: 'Grupo 11 de Diseño'
     }).addTo(map);
 
     // Añadir puntos en el mapa
