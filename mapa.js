@@ -4,8 +4,8 @@ $(document).ready(function() {
     cargarMapa();
 });
 
-// La L es un objeto de leaflet 
 
+// La L es un objeto de leaflet 
 function cargarMapa(){
 	const puntoCentral ={
 		lat : -34.656032172926906, 
@@ -20,6 +20,8 @@ function cargarMapa(){
         attribution: 'Grupo 11 de Diseño'
     }).addTo(map);
 
+    map.doubleClickZoom.disable();
+
     // Añadir puntos en el mapa
     agregarHeladera(-34.598516864145495, -58.420117003006,"HELADERA MEDRANO");
     agregarHeladera(-34.659069603084916, -58.467244833730525, "HELADERA CAMPUS");
@@ -28,9 +30,11 @@ function cargarMapa(){
     // Salta un cuadro de dialogo para que el usuario ingrese el nombre de la heladera
     // esto se podria hacer mas lindo seguramente pero escapa a mi comprension
     map.on('dblclick', function(event) {
-        var punto = event.latlng;
         var nombreHeladera = prompt("Ingrese el nombre de la heladera", "Heladera1")
-        agregarHeladera(punto.lat, punto.lng, nombreHeladera);
+        if(nombreHeladera != null){
+            var punto = event.latlng;
+            agregarHeladera(punto.lat, punto.lng, nombreHeladera);
+        }
     });
     
 }
@@ -38,5 +42,6 @@ function cargarMapa(){
 function agregarHeladera(latitud,longitud,nombreHeladera){
     var marker = L.marker([latitud, longitud]).addTo(map);
     marker.bindPopup("<b>"+nombreHeladera+"</b>").openPopup();
+    
 }
 
